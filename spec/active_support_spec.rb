@@ -7,7 +7,7 @@ require 'date_time_precision'
 
 require 'date_time_precision/format/json'
 
-describe DateTimePrecision, 'Conversions' do  
+describe DateTimePrecision, 'Conversions' do
   context 'when converting from Date to Time or DateTime' do
     it 'maintains precision' do
       d = Date.new(2005, 1)
@@ -15,25 +15,30 @@ describe DateTimePrecision, 'Conversions' do
       expect(d.to_date.precision).to eq(DateTimePrecision::MONTH)
       expect(d.to_datetime.precision).to eq(DateTimePrecision::MONTH)
     end
+
+    it 'handles arguments' do
+      d = Date.new(2005, 1)
+      expect { d.to_time(:utc) }.to_not raise_error(ArgumentError, "wrong number of arguments (given 1, expected 0)")
+    end
   end
-  
+
   it 'loses precision when converting from DateTime or Time to Date' do
     t = Time::parse('2000-1-1 00:00:00 EST') # => Fri Dec 31 21:00:00 -0800 1999
     expect(t.precision).to eq(DateTimePrecision::SEC)
     expect(t.to_datetime.precision).to eq(DateTimePrecision::SEC)
     expect(t.to_date.precision).to eq(DateTimePrecision::DAY)
   end
-  
+
   it 'converts a date to a hash' do
     date = Date.new(1999, 10)
     expect(date.as_json).to eq(date.to_h)
   end
-  
+
   it 'retains precision when converting to and from JSON' do
     date = Date.new(1999, 10)
     expect(date.precision).to eq(DateTimePrecision::MONTH)
     json = ActiveSupport::JSON.encode(date)
-    
+
     date_from_json = ActiveSupport::JSON.decode(json).to_date
     expect(date_from_json.precision).to eq(date.precision)
   end
