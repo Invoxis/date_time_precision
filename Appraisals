@@ -9,3 +9,7 @@ end
 appraise "activesupport4" do
   gem 'activesupport', '~> 4', :require => false
 end
+
+appraise "activesupport5" do
+  gem 'activesupport', '~> 5', :require => false
+end
