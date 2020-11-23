@@ -39,6 +39,7 @@ The gem adds the following (possibly missing) methods to Date, Time, and/or Date
 * precision
 * precision=
 * partial_match?
+* is_complete?
 * year?
 * month?
 * day?
