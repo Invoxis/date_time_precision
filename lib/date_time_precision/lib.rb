@@ -126,6 +126,11 @@ module DateTimePrecision
     self.class::partial_match?(self, date2)
   end
 
+  # Returns true if date complete (has year, month and day)
+  def is_complete?
+    @precision == 3
+  end
+
   def normalize_new_args(args)
     self.class.normalize_new_args(args)
   end
