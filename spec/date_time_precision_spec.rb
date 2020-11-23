@@ -179,6 +179,23 @@ describe DateTimePrecision do
     end
   end
 
+  describe '#is_complete?' do
+    it 'returns true when date has year, month and day' do
+      d1 = Date.new(2001,3,2)
+      expect(d1.is_complete?).to be true
+    end
+
+    it 'returns false when date day missing' do
+      d1 = Date.new(2001,3)
+      expect(d1.is_complete?).to be false
+    end
+
+    it 'returns false when date day and month missing' do
+      d1 = Date.new(2001)
+      expect(d1.is_complete?).to be false
+    end
+  end
+
   context 'Decades and Centuries' do
     it 'should have the proper precision when outputting decades or centuries' do
       no_date = Date.new
